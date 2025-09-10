@@ -61,4 +61,4 @@ Open an issue on the [GitHub Issues page](https://github.com/kalokaradia/weblet-
 This project is licensed under the [MIT License](./LICENSE).
 
 ---
-Made with ❤️ by [Kaloka Radia Nanda](https://github.com/kalokaradia)
+Made with ❤️ by [Kaloka Radia Nanda](https://kalokaradiananda.my.id)
