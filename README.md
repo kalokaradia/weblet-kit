@@ -1,4 +1,4 @@
-# weblet-kit
+# 🕸️ WEBLET KIT
 
 > 🧰 A lightweight JavaScript utility toolkit packed with handy validators and everyday helpers.  
 > Modular, dependency-free, and developer-first.  
