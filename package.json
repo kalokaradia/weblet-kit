@@ -35,5 +35,8 @@
 	],
 	"devDependencies": {
 		"esbuild": "^0.25.9"
+	},
+	"dependencies": {
+		"weblet-kit": "^1.0.0"
 	}
 }
