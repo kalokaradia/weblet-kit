@@ -2,11 +2,22 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Weblet Kit</title>
+		<title>Test</title>
 	</head>
 	<body>
-		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-		<script src="./index.js" type="module"></script>
+		<script type="module">
+			import webletKit, {
+				utils,
+				validators,
+			} from "https://unpkg.com/weblet-kit@1.0.0/dist/weblet-kit.min.mjs";
+
+			// dari validators
+			console.log(validators.isStrongPassword("P@ssword123")); // true
+			console.log(validators.isStrongPassword("abc123")); // false
+
+			// dari utils
+			console.log(utils.generateRandomId()); // contoh output: "aZ3xY1kLmN"
+			console.log(utils.generateRandomId(20)); // panjang custom 20
+		</script>
 	</body>
 </html>
