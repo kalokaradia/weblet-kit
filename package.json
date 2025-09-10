@@ -1,0 +1,39 @@
+{
+	"name": "weblet-kit",
+	"version": "1.0.0",
+	"description": "Weblet-Kit is a lightweight JavaScript utility toolkit providing handy validators and everyday helpers. Modular, dependency-free, and developer-first — perfect for web developers who want ready-to-use snippets without heavy frameworks.",
+	"keywords": [
+		"javascript",
+		"utility",
+		"toolkit",
+		"helpers",
+		"validators",
+		"esm",
+		"modular",
+		"dependency-free",
+		"frontend",
+		"web-development",
+		"weblet"
+	],
+	"author": "kalokaradia",
+	"license": "MIT",
+	"type": "module",
+	"main": "./dist/weblet-kit.min.mjs",
+	"module": "./dist/weblet-kit.min.mjs",
+	"exports": {
+		".": "./dist/weblet-kit.min.mjs"
+	},
+	"scripts": {
+		"build": "esbuild src/weblet-kit.mjs --bundle --minify --format=esm --outfile=dist/weblet-kit.min.mjs",
+		"prepublishOnly": "npm run build",
+		"test": "echo \"No tests yet\""
+	},
+	"files": [
+		"dist/",
+		"README.md",
+		"LICENSE"
+	],
+	"devDependencies": {
+		"esbuild": "^0.25.9"
+	}
+}
