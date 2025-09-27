@@ -1,14 +1,3 @@
-/**
- * @fileoverview Modul ini berisi berbagai fungsi utilitas praktis untuk tugas umum.
- * @module utils
- */
-
-/**
- * Memformat objek Date menjadi string sesuai format yang diberikan.
- * @param {Date} date - Objek Date yang akan diformat.
- * @param {string} [format='YYYY-MM-DD'] - String format. Contoh: 'YYYY-MM-DD HH:mm:ss'.
- * @returns {string} String tanggal/waktu yang diformat.
- */
 export const formatDate = (date, format = "YYYY-MM-DD") => {
 	if (!(date instanceof Date)) return "";
 	const year = date.getFullYear();
@@ -27,11 +16,6 @@ export const formatDate = (date, format = "YYYY-MM-DD") => {
 		.replace("ss", seconds);
 };
 
-/**
- * Membuat string ID acak dengan panjang yang ditentukan.
- * @param {number} [length=16] - Panjang ID yang diinginkan.
- * @returns {string} ID acak.
- */
 export const generateRandomId = (length = 16) => {
 	const characters =
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -44,21 +28,11 @@ export const generateRandomId = (length = 16) => {
 	return result;
 };
 
-/**
- * Mengubah huruf pertama dari sebuah string menjadi huruf kapital.
- * @param {string} str - String yang akan diubah.
- * @returns {string} String yang sudah dikapitalisasi.
- */
 export const capitalize = (str) => {
 	if (typeof str !== "string" || str.length === 0) return "";
 	return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-/**
- * Mengubah karakter khusus HTML (&, <, >, ", ') menjadi entitas HTML.
- * @param {string} str - String yang akan di-escape.
- * @returns {string} String dengan karakter HTML yang sudah di-escape.
- */
 export const escapeHTML = (str) => {
 	if (typeof str !== "string" || str.length === 0) return "";
 	const replacements = {
@@ -71,13 +45,6 @@ export const escapeHTML = (str) => {
 	return str.replace(/[&<>"']/g, (match) => replacements[match]);
 };
 
-/**
- * Membuat versi "debounced" dari sebuah fungsi. Eksekusi fungsi akan ditunda
- * sampai setelah event terakhir berhenti selama 'delay' milidetik.
- * @param {Function} func - Fungsi yang akan di-debounce.
- * @param {number} delay - Waktu tunda dalam milidetik.
- * @returns {Function} Fungsi debounced.
- */
 export const debounce = (func, delay) => {
 	let timeout;
 	return (...args) => {
@@ -88,13 +55,6 @@ export const debounce = (func, delay) => {
 	};
 };
 
-/**
- * Membuat versi "throttled" dari sebuah fungsi. Fungsi hanya akan dieksekusi
- * paling banyak sekali dalam 'limit' milidetik.
- * @param {Function} func - Fungsi yang akan di-throttle.
- * @param {number} limit - Batas waktu dalam milidetik.
- * @returns {Function} Fungsi throttled.
- */
 export const throttle = (func, limit) => {
 	let inThrottle;
 	return (...args) => {
@@ -104,4 +64,41 @@ export const throttle = (func, limit) => {
 			setTimeout(() => (inThrottle = false), limit);
 		}
 	};
+};
+
+export const shuffleArray = (arr) => {
+	if (!Array.isArray(arr)) return [];
+	const copy = [...arr];
+	for (let i = copy.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[copy[i], copy[j]] = [copy[j], copy[i]];
+	}
+	return copy;
+};
+
+export const average = (arr) => {
+	if (!Array.isArray(arr) || arr.length === 0) return 0;
+	const sum = arr.reduce((a, b) => a + b, 0);
+	return sum / arr.length;
+};
+
+export const max = (arr) => {
+	if (!Array.isArray(arr) || arr.length === 0) return undefined;
+	return Math.max(...arr);
+};
+
+export const min = (arr) => {
+	if (!Array.isArray(arr) || arr.length === 0) return undefined;
+	return Math.min(...arr);
+};
+
+export const sortNumbers = (arr) => {
+	if (!Array.isArray(arr)) return [];
+	return [...arr].sort((a, b) => a - b);
+};
+
+export const isPalindrome = (str) => {
+	if (typeof str !== "string") return false;
+	const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, "");
+	return cleaned === cleaned.split("").reverse().join("");
 };

@@ -1,7 +1,7 @@
 # 🕸️ WEBLET KIT
 
-> 🧰 A lightweight JavaScript utility toolkit packed with handy validators and everyday helpers.  
-> Modular, dependency-free, and developer-first.  
+> 🧰 A lightweight JavaScript utility toolkit packed with handy validators and everyday helpers.
+> Modular, dependency-free, and developer-first.
 > Perfect for rapid development, code cleanliness, and boosting productivity in any JavaScript project.
 
 ## ✨ Features

@@ -1,13 +1,3 @@
-/**
- * @fileoverview Modul ini berisi fungsi-fungsi helper untuk validasi data.
- * @module validators
- */
-
-/**
- * Memeriksa apakah sebuah string memiliki format alamat email yang valid.
- * @param {string} str - String yang akan divalidasi.
- * @returns {boolean} True jika format email valid, false jika tidak.
- */
 export const isEmail = (str) => {
 	if (typeof str !== "string" || str.trim() === "") {
 		return false;
@@ -16,11 +6,6 @@ export const isEmail = (str) => {
 	return emailRegex.test(str);
 };
 
-/**
- * Memeriksa apakah sebuah string adalah URL yang valid.
- * @param {string} str - String yang akan divalidasi.
- * @returns {boolean} True jika string adalah URL yang valid, false jika tidak.
- */
 export const isURL = (str) => {
 	if (typeof str !== "string" || str.trim() === "") {
 		return false;
@@ -33,11 +18,6 @@ export const isURL = (str) => {
 	}
 };
 
-/**
- * Memeriksa apakah sebuah string adalah UUID (Universally Unique Identifier) yang valid.
- * @param {string} str - String yang akan divalidasi.
- * @returns {boolean} True jika string adalah UUID yang valid, false jika tidak.
- */
 export const isUUID = (str) => {
 	if (typeof str !== "string" || str.trim() === "") {
 		return false;
@@ -47,12 +27,6 @@ export const isUUID = (str) => {
 	return uuidRegex.test(str);
 };
 
-/**
- * Memeriksa apakah sebuah string memenuhi kriteria sebagai kata sandi yang kuat.
- * Kriteria: minimal 8 karakter, mengandung huruf besar, huruf kecil, angka, dan karakter khusus.
- * @param {string} str - String kata sandi.
- * @returns {boolean} True jika kata sandi kuat, false jika tidak.
- */
 export const isStrongPassword = (str) => {
 	if (typeof str !== "string") return false;
 	const hasMinLength = str.length >= 8;
@@ -67,4 +41,43 @@ export const isStrongPassword = (str) => {
 		hasNumber &&
 		hasSpecialChar
 	);
+};
+
+export const isNumber = (val) => {
+	return typeof val === "number" && !isNaN(val);
+};
+
+export const isInteger = (val) => {
+	return Number.isInteger(val);
+};
+
+export const isBoolean = (val) => {
+	return typeof val === "boolean" || val === "true" || val === "false";
+};
+
+export const isDate = (val) => {
+	if (Object.prototype.toString.call(val) === "[object Date]") {
+		return !isNaN(val.getTime());
+	}
+	if (typeof val === "string" || typeof val === "number") {
+		const d = new Date(val);
+		return !isNaN(d.getTime());
+	}
+	return false;
+};
+
+export const isEmpty = (val) => {
+	if (val == null) return true;
+	if (typeof val === "string" || Array.isArray(val)) {
+		return val.length === 0;
+	}
+	if (typeof val === "object") {
+		return Object.keys(val).length === 0;
+	}
+	return false;
+};
+
+export const isAlphanumeric = (str) => {
+	if (typeof str !== "string") return false;
+	return /^[a-z0-9]+$/i.test(str);
 };

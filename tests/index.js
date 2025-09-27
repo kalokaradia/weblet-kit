@@ -1,3 +1,17 @@
-import { utils } from "https://unpkg.com/weblet-kit@1.0.0/dist/weblet-kit.min.mjs";
+import { utils, validators } from "../dist/weblet-kit.min.js";
 
-console.log(utils.isStrongPassword("P@ssword123"));
+window.addEventListener(
+	"keyup",
+	utils.debounce(() => {
+		console.log("Ketik selesai!");
+	}, 500)
+);
+
+window.addEventListener(
+	"scroll",
+	utils.throttle(() => {
+		console.log("Scroll jalan!");
+	}, 1000)
+);
+
+console.log(utils.shuffleArray([1, 2, 3, 4, 5]));

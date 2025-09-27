@@ -15,6 +15,6 @@ yarn-error.log*
 *.bak
 *.orig
 *.rej
-test/
+tests/
 __tests__/
 __mocks__/

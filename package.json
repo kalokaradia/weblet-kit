@@ -18,13 +18,13 @@
 	"author": "kalokaradia",
 	"license": "MIT",
 	"type": "module",
-	"main": "./dist/weblet-kit.min.mjs",
-	"module": "./dist/weblet-kit.min.mjs",
+	"main": "./dist/weblet-kit.min.js",
+	"module": "./dist/weblet-kit.min.js",
 	"exports": {
-		".": "./dist/weblet-kit.min.mjs"
+		".": "./dist/weblet-kit.min.js"
 	},
 	"scripts": {
-		"build": "esbuild src/weblet-kit.mjs --bundle --minify --format=esm --outfile=dist/weblet-kit.min.mjs",
+		"build": "esbuild src/weblet-kit.js --bundle --minify --format=esm --outfile=dist/weblet-kit.min.js",
 		"prepublishOnly": "npm run build",
 		"test": "echo \"No tests yet\""
 	},
@@ -35,8 +35,5 @@
 	],
 	"devDependencies": {
 		"esbuild": "^0.25.9"
-	},
-	"dependencies": {
-		"weblet-kit": "^1.0.0"
 	}
 }
