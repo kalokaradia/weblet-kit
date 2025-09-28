@@ -1,6 +1,6 @@
 {
 	"name": "weblet-kit",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Weblet-Kit is a lightweight JavaScript utility toolkit providing handy validators and everyday helpers. Modular, dependency-free, and developer-first — perfect for web developers who want ready-to-use snippets without heavy frameworks.",
 	"keywords": [
 		"javascript",
