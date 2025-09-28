@@ -29,74 +29,29 @@ debouncedFn();
 
 ## 📖 Documentation
 
-### 🔍 Validators
+For complete documentation, please visit the [Main Documentation](https://kalokaradia.github.io/weblet-kit) page.
 
-- **isEmail(email: string): boolean**  
-  ✅ Cek apakah string valid sebagai email.
+## 🤝 Contribution
 
-- **isURL(url: string): boolean**  
-  🌐 Validasi URL dengan `new URL()`.
+Contributions are welcome! To contribute:
 
-- **isUUID(uuid: string): boolean**  
-  🆔 Periksa apakah string sesuai format UUID v4.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature/my-feature`)
+5. Open a pull request
 
-- **isStrongPassword(password: string): boolean**  
-  🔒 Password ≥8 karakter, ada huruf besar, kecil, angka, dan simbol.
+Please review the [contributing guidelines](CONTRIBUTING.md) before submitting PRs.
 
-- **isNumber(value: any): boolean**  
-  🔢 Cek apakah nilai bertipe number dan bukan NaN.
+## 🐞 Issues
 
-- **isInteger(value: any): boolean**  
-  🧮 Cek apakah nilai integer.
+Found a bug or have a feature request?  
+Open an issue on the [GitHub Issues page](https://github.com/kalokaradia/weblet-kit/issues).
 
-- **isBoolean(value: any): boolean**  
-  ⚖️ Nilai `true/false` (termasuk string `"true"` / `"false"`).
+## 📄 License
 
-- **isDate(value: any): boolean**  
-  📅 Validasi Date object, string tanggal, atau timestamp number.
-
-- **isEmpty(value: any): boolean**  
-  🕳️ Cek apakah null, string kosong, array kosong, atau object kosong.
-
-- **isAlphanumeric(value: string): boolean**  
-  🔡 Cek apakah string hanya berisi huruf dan angka.
+This project is licensed under the [MIT License](./LICENSE).
 
 ---
 
-### 🛠️ Utils
-
-- **formatDate(date: Date, format?: string): string**  
-  ⏰ Format tanggal (`YYYY-MM-DD HH:mm:ss`).
-
-- **generateRandomId(length?: number): string**  
-  🎲 Random string (default 16 karakter).
-
-- **capitalize(text: string): string**  
-  ✨ Huruf pertama jadi kapital.
-
-- **escapeHTML(text: string): string**  
-  🛡️ Escape karakter spesial ke HTML entities.
-
-- **debounce(fn: Function, delay: number): Function**  
-  ⏳ Jalankan fungsi setelah berhenti dipanggil beberapa ms.
-
-- **throttle(fn: Function, delay: number): Function**  
-  🚦 Batasi fungsi agar hanya jalan tiap interval tertentu.
-
-- **shuffleArray(arr: any[]): any[]**  
-  🔀 Acak isi array.
-
-- **average(arr: number[]): number**  
-  ➗ Hitung rata-rata array angka.
-
-- **max(arr: number[]): number | undefined**  
-  📈 Ambil nilai terbesar.
-
-- **min(arr: number[]): number | undefined**  
-  📉 Ambil nilai terkecil.
-
-- **sortNumbers(arr: number[]): number[]**  
-  📊 Urutkan angka ascending.
-
-- **isPalindrome(text: string): boolean**  
-  🔄 Cek apakah teks palindrome.
+Made with ❤️ by [Kaloka Radia Nanda](https://kalokaradiananda.vercel.app)
