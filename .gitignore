@@ -19,3 +19,4 @@ yarn-error.log*
 tests/
 __tests__/
 __mocks__/
+bun.lock

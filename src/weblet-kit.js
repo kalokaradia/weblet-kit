@@ -1,7 +1,7 @@
-import * as v from "./validators.js";
 import * as u from "./utils.js";
+import * as v from "./validators.js";
 
-export const validators = { ...v };
 export const utils = { ...u };
+export const validators = { ...v };
 
-export default { validators, utils };
+export default { utils, validators };

@@ -1,4 +1,4 @@
-# Contributing to Weblet Kit
+# Contributing to Weblet-Kit
 
 Thank you for your interest in contributing! Please follow these guidelines to help us maintain a high-quality project.
 

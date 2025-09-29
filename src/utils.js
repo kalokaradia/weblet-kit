@@ -1,3 +1,4 @@
+// 1.0.0
 export const formatDate = (date, format = "YYYY-MM-DD") => {
 	if (!(date instanceof Date)) return "";
 	const year = date.getFullYear();
@@ -21,9 +22,7 @@ export const generateRandomId = (length = 16) => {
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 	let result = "";
 	for (let i = 0; i < length; i++) {
-		result += characters.charAt(
-			Math.floor(Math.random() * characters.length)
-		);
+		result += characters.charAt(Math.floor(Math.random() * characters.length));
 	}
 	return result;
 };
@@ -61,10 +60,14 @@ export const throttle = (func, limit) => {
 		if (!inThrottle) {
 			func.apply(this, args);
 			inThrottle = true;
-			setTimeout(() => (inThrottle = false), limit);
+			setTimeout(() => {
+				inThrottle = false;
+			}, limit);
 		}
 	};
 };
+
+// 1.1.0
 
 export const shuffleArray = (arr) => {
 	if (!Array.isArray(arr)) return [];
@@ -101,4 +104,49 @@ export const isPalindrome = (str) => {
 	if (typeof str !== "string") return false;
 	const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, "");
 	return cleaned === cleaned.split("").reverse().join("");
+};
+
+// 1.2.0
+export const chunkArray = (array, size) => {
+	if (!Array.isArray(array)) return [];
+	if (typeof size !== "number" || size <= 0) return [];
+
+	const result = [];
+	for (let i = 0; i < array.length; i += size) {
+		result.push(array.slice(i, i + size));
+	}
+	return result;
+};
+
+export const deepClone = (value) => {
+	if (value === null || typeof value !== "object") return value;
+
+	if (Array.isArray(value)) {
+		return value.map((item) => deepClone(item));
+	}
+
+	const clonedObj = {};
+	for (const key in value) {
+		if (Object.hasOwn(value, key)) {
+			clonedObj[key] = deepClone(value[key]);
+		}
+	}
+	return clonedObj;
+};
+
+export const range = (start, end, step = 1) => {
+	if (typeof start !== "number" || typeof end !== "number") return [];
+	if (typeof step !== "number" || step === 0) return [];
+
+	const result = [];
+	if (start < end && step > 0) {
+		for (let i = start; i < end; i += step) {
+			result.push(i);
+		}
+	} else if (start > end && step < 0) {
+		for (let i = start; i > end; i += step) {
+			result.push(i);
+		}
+	}
+	return result;
 };

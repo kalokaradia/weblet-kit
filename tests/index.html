@@ -6,6 +6,14 @@
 	</head>
 	<body>
 		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-		<script src="./index.js" type="module"></script>
+		<script type="module">
+			import webletKit, {
+				utils,
+				validators,
+			} from "https://unpkg.com/weblet-kit@1.1.0/dist/weblet-kit.min.js";
+			console.log(validators.isEmail("test@example.com")); // true
+			console.log(utils.capitalize("hello world")); // "Hello world"
+			console.log(webletKit); // Full webletKit object
+		</script>
 	</body>
 </html>

@@ -1,6 +1,20 @@
-# Documentation
+# WEBLET-KIT
 
-## 📦 Installation
+> Tiny tools, big impact.
+
+A minimal JavaScript utility toolkit that gives you the essentials — fast, modular, and zero-dependency.
+
+## Why Weblet-Kit?
+
+- ✅ Zero dependencies
+- 📦 Simple and modular utilities
+- 🧑‍💻 Developer-friendly API
+- ⚡ Optimized and lightweight (ESM support)
+- 🔧 Includes validators and common helpers
+- 🛠️ Easily extendable for custom use cases
+- 🏷️ Well-documented functions for quick onboarding
+
+## Quick Install
 
 Install via [npm](https://www.npmjs.com/package/weblet-kit):
 
@@ -8,49 +22,41 @@ Install via [npm](https://www.npmjs.com/package/weblet-kit):
 npm install weblet-kit
 ```
 
-or you can use it via [CDN](https://unpkg.com/weblet-kit):
+or drop straight from CDN:
 
 ```js
 import webletKit, {utils, validators} from "https://unpkg.com/weblet-kit";
 ```
 
-## 🚀 Usage
+## Example
 
 Import and use any utility you need:
 
 ```js
-import { validators, utils } from 'weblet-kit';
+import { validators, utils } from "weblet-kit";
 
-console.log(validators.isEmail('test@example.com')); // true
+console.log(validators.isEmail("test@example.com")); // true
 
-const debouncedFn = utils.debounce(() => console.log('Hello!'), 300);
+const debouncedFn = utils.debounce(() => console.log("Ping!"), 300);
 debouncedFn();
 ```
 
-## 📖 Documentation
+## Contribute
 
-For complete documentation, please visit the [Main Documentation](https://kalokaradia.github.io/weblet-kit) page.
+We love contributions. PRs and issues welcome!
 
-## 🤝 Contribution
+[Contributing Guide](https://github.com/kalokaradia/weblet-kit/blob/main/CONTRIBUTING.md)
 
-Contributions are welcome! To contribute:
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/my-feature`)
-3. Commit your changes (`git commit -am 'Add new feature'`)
-4. Push to the branch (`git push origin feature/my-feature`)
-5. Open a pull request
-
-Please review the [contributing guidelines](CONTRIBUTING.md) before submitting PRs.
-
-## 🐞 Issues
+## Issues
 
 Found a bug or have a feature request?  
 Open an issue on the [GitHub Issues page](https://github.com/kalokaradia/weblet-kit/issues).
 
-## 📄 License
+## License
 
-This project is licensed under the [MIT License](./LICENSE).
+MIT. Use it, remix it, ship it.
+
+[MIT License](https://github.com/kalokaradia/weblet-kit/blob/main/LICENSE).
 
 ---
 
