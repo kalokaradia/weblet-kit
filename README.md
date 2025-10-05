@@ -1,4 +1,4 @@
-# <div style="display:flex;align-items:center; gap: 12px;"><img src="./weblet-kit.svg" style="width: 24px; height: 24px;" /> <span>WEBLET-KIT</span></div>
+# <div style="display:flex;align-items:center; gap: 12px;"><img src="./icon.svg" style="width: 24px; height: 24px;" /> <span>WEBLET-KIT</span></div>
 
 > **Tiny tools, big impact.**  
 > A minimal JavaScript utility toolkit that gives you the essentials — fast, modular, and zero-dependency.
