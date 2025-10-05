@@ -1,0 +1,15 @@
+export declare const formatDate: (date: Date, format?: string) => string;
+export declare const generateRandomId: (length?: number) => string;
+export declare const capitalize: (str: string) => string;
+export declare const escapeHTML: (str: string) => string;
+export declare const debounce: <T extends (...args: any[]) => any>(func: T, delay: number) => ((...args: Parameters<T>) => void);
+export declare const throttle: <T extends (...args: any[]) => any>(func: T, limit: number) => ((...args: Parameters<T>) => void);
+export declare const shuffleArray: <T>(arr: T[]) => T[];
+export declare const average: (arr: number[]) => number;
+export declare const sortNumbers: (arr: number[], order?: "asc" | "desc") => number[];
+export declare const isPalindrome: (str: string) => boolean;
+export declare const chunkArray: <T>(array: T[], size: number) => T[][];
+export declare const deepClone: <T>(value: T) => T;
+export declare const range: (start: number, end: number, step?: number) => number[];
+export declare const arrayMax: (arr: number[]) => number | undefined;
+export declare const arrayMin: (arr: number[]) => number | undefined;

@@ -1,0 +1,32 @@
+export declare const isEmail: (str: unknown) => boolean;
+export declare const isURL: (str: unknown) => boolean;
+export declare const isUUID: (str: unknown) => boolean;
+export interface StrongPasswordOptions {
+    minLength?: number;
+    maxLength?: number;
+    requireUppercase?: boolean;
+    requireLowercase?: boolean;
+    requireNumber?: boolean;
+    requireSpecialChar?: boolean;
+    specialChars?: string;
+}
+export declare const isStrongPassword: (str: unknown, options?: StrongPasswordOptions) => boolean;
+export declare const isNumber: (val: unknown) => boolean;
+export declare const isInteger: (val: unknown) => boolean;
+export declare const isBoolean: (val: unknown) => boolean;
+export declare const isDate: (val: unknown) => boolean;
+export declare const isEmpty: (val: unknown) => boolean;
+export declare const isAlphanumeric: (str: unknown) => boolean;
+export declare function isAlpha(text: unknown): boolean;
+export declare function isNumeric(text: unknown): boolean;
+export declare function isHexColor(text: unknown): boolean;
+export declare function isJSON(value: unknown): boolean;
+export declare function isIP(text: unknown): boolean;
+export declare function isDomain(text: unknown): boolean;
+export declare function isPhoneNumber(text: unknown): boolean;
+export declare function isCreditCard(text: unknown): boolean;
+export declare function _normalizeDate(date: unknown): Date | null;
+export declare function isFutureDate(date: unknown): boolean;
+export declare function isPastDate(date: unknown): boolean;
+export declare function isDateBefore(date: unknown, comparisonDate: unknown): boolean;
+export declare function isDateAfter(date: unknown, comparisonDate: unknown): boolean;
