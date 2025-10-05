@@ -11,7 +11,10 @@ npm install weblet-kit
 Or use it via CDN:
 
 ```js
-import webletKit, { utils, validators } from "https://unpkg.com/weblet-kit";
+import webletKit, {
+	utils,
+	validators,
+} from "https://unpkg.com/weblet-kit@2.0.0/dist/weblet-kit.min.js";
 ```
 
 ## Example

@@ -1,9 +1,21 @@
 {
 	"name": "weblet-kit",
-	"version": "1.2.0",
+	"version": "2.0.0",
 	"description": "Weblet-Kit is a lightweight JavaScript utility toolkit providing handy validators and everyday helpers. Modular, dependency-free, and developer-first — perfect for web developers who want ready-to-use snippets without heavy frameworks.",
+	"repository": {
+		"url": "https://github.com/kalokaradia/weblet-kit",
+		"type": "git"
+	},
+	"badges": [
+		{
+			"href": "https://www.npmjs.com/package/weblet-kit",
+			"url": "https://img.shields.io/badge/Weblet-Kit-blue?logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0yMDQuOTU1IDcxQzIwOS4xOCA3MSAyMTIuOTQ5IDczLjY1NTIgMjE0LjM3MiA3Ny42MzM1TDI1MC4zMDEgMTc4LjEzTDE2NC4yMTcgNDE4LjkxMkMxNjEuMDU1IDQyNy43NTcgMTQ4LjU0NyA0MjcuNzU3IDE0NS4zODQgNDE4LjkxMkwyNS43Nzg3IDg0LjM2NjVDMjMuNDUwMiA3Ny44NTM1IDI4LjI3ODMgNzEgMzUuMTk1MSA3MUgyMDQuOTU1Wk00NjUuNDA3IDcxQzQ3Mi4zMjMgNzEgNDc3LjE1MSA3Ny44NTM1IDQ3NC44MjMgODQuMzY2NUwzNTUuMjE3IDQxOC45MTJDMzUyLjA1NSA0MjcuNzU3IDMzOS41NDcgNDI3Ljc1NyAzMzYuMzg0IDQxOC45MTJMMjUwLjMwMSAxNzguMTNMMjg2LjIzIDc3LjYzMzVDMjg3LjY1MiA3My42NTUyIDI5MS40MjEgNzEgMjk1LjY0NiA3MUg0NjUuNDA3WiIgZmlsbD0iIzA2QjZENCIvPgo8L3N2Zz4K"
+		}
+	],
+	"icon": "https://raw.githubusercontent.com/kalokaradia/weblet-kit/refs/heads/main/icon.svg",
 	"keywords": [
 		"javascript",
+		"typescript",
 		"utility",
 		"toolkit",
 		"helpers",
@@ -21,12 +33,16 @@
 	"main": "./dist/weblet-kit.min.js",
 	"module": "./dist/weblet-kit.min.js",
 	"exports": {
-		".": "./dist/weblet-kit.min.js"
+		".": {
+			"import": "./dist/weblet-kit.min.js",
+			"require": "./dist/weblet-kit.min.js",
+			"types": "./dist/weblet-kit.d.ts"
+		}
 	},
 	"scripts": {
-		"build": "esbuild src/weblet-kit.js --bundle --minify --format=esm --outfile=dist/weblet-kit.min.js",
-		"prepublishOnly": "npm run build",
-		"test": "echo \"No tests yet\""
+		"build": "bun run build:types && bun run build:bundle",
+		"build:types": "tsc",
+		"build:bundle": "bun build ./src/weblet-kit.ts --minify --outfile=./dist/weblet-kit.min.js"
 	},
 	"files": [
 		"dist/",
@@ -34,9 +50,7 @@
 		"LICENSE"
 	],
 	"devDependencies": {
-		"esbuild": "^0.25.9"
-	},
-	"dependencies": {
-		"weblet-kit": "^1.1.0"
+		"@types/node": "^24.6.2",
+		"typescript": "^5.9.3"
 	}
 }

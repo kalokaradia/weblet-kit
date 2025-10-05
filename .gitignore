@@ -2,6 +2,7 @@ node_modules/
 dist/
 build/
 coverage/
+tests/
 .env
 *.log
 *.tmp
@@ -11,12 +12,11 @@ coverage/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+bun.lock
 *.swp
 *.swo
 *.bak
 *.orig
 *.rej
-tests/
 __tests__/
 __mocks__/
-bun.lock
