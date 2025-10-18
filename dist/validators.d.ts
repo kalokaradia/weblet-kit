@@ -1,4 +1,3 @@
-export declare const isEmail: (str: unknown) => boolean;
 export declare const isURL: (str: unknown) => boolean;
 export declare const isUUID: (str: unknown) => boolean;
 export interface StrongPasswordOptions {
@@ -30,3 +29,9 @@ export declare function isFutureDate(date: unknown): boolean;
 export declare function isPastDate(date: unknown): boolean;
 export declare function isDateBefore(date: unknown, comparisonDate: unknown): boolean;
 export declare function isDateAfter(date: unknown, comparisonDate: unknown): boolean;
+export declare function isEmail(str: unknown): boolean;
+export declare function isBase64(str: unknown): boolean;
+export declare const isSlug: (str: unknown) => boolean;
+export declare const isLatitude: (value: unknown) => boolean;
+export declare const isLongitude: (value: unknown) => boolean;
+export declare const isMimeType: (str: string) => boolean;

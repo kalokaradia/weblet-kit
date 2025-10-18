@@ -177,3 +177,80 @@ export const arrayMin = (arr: number[]): number | undefined => {
 	if (!Array.isArray(arr) || arr.length === 0) return undefined;
 	return Math.min(...arr);
 };
+
+// 2.1.0
+export function flattenArray<T>(input: any[]): T[] {
+	const result: T[] = [];
+
+	const flatten = (arr: any[]) => {
+		for (const item of arr) {
+			if (Array.isArray(item)) {
+				flatten(item); // rekursif untuk array dalam array
+			} else {
+				result.push(item);
+			}
+		}
+	};
+
+	flatten(input);
+	return result;
+}
+
+export function arrayGroupBy<T>(array: T[], key: keyof T): Record<string, T[]> {
+	return array.reduce(
+		(acc, item) => {
+			const groupKey = String(item[key]); // pastikan key berupa string
+			if (!acc[groupKey]) {
+				acc[groupKey] = [];
+			}
+			acc[groupKey].push(item);
+			return acc;
+		},
+		{} as Record<string, T[]>,
+	);
+}
+
+export function removeDuplicatesArray<T>(array: T[]): T[] {
+	return Array.from(new Set(array));
+}
+
+export const clamp = (value: number, min: number, max: number): number => {
+	if (![value, min, max].every(Number.isFinite)) return NaN;
+
+	// Tukar otomatis jika parameter salah urut
+	if (min > max) [min, max] = [max, min];
+
+	return Math.min(Math.max(value, min), max);
+};
+
+export function memoize<T extends (...args: any[]) => any>(fn: T): T {
+	if (typeof fn !== "function") {
+		throw new TypeError("Expected a function to memoize");
+	}
+
+	const cache = new Map<string, ReturnType<T>>();
+
+	const memoized = (...args: Parameters<T>): ReturnType<T> => {
+		// Gunakan JSON.stringify untuk membuat key deterministik
+		// Aman untuk argumen primitif dan object literal sederhana
+		const key = args.length ? JSON.stringify(args) : "__noargs__";
+
+		if (cache.has(key)) {
+			return cache.get(key)!;
+		}
+
+		const result = fn(...args);
+		cache.set(key, result);
+		return result;
+	};
+
+	// Optional: expose cache untuk keperluan debugging atau manual clear
+	Object.defineProperty(memoized, "cache", {
+		value: cache,
+		writable: false,
+		enumerable: false,
+		configurable: false,
+	});
+
+	return memoized as T;
+}

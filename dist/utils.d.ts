@@ -13,3 +13,8 @@ export declare const deepClone: <T>(value: T) => T;
 export declare const range: (start: number, end: number, step?: number) => number[];
 export declare const arrayMax: (arr: number[]) => number | undefined;
 export declare const arrayMin: (arr: number[]) => number | undefined;
+export declare function flattenArray<T>(input: any[]): T[];
+export declare function arrayGroupBy<T>(array: T[], key: keyof T): Record<string, T[]>;
+export declare function removeDuplicatesArray<T>(array: T[]): T[];
+export declare const clamp: (value: number, min: number, max: number) => number;
+export declare function memoize<T extends (...args: any[]) => any>(fn: T): T;

@@ -14,7 +14,7 @@ Or use it via CDN:
 import webletKit, {
 	utils,
 	validators,
-} from "https://unpkg.com/weblet-kit@2.0.0/dist/weblet-kit.min.js";
+} from "https://unpkg.com/weblet-kit@2.1.0/dist/weblet-kit.min.js";
 ```
 
 ## Example

@@ -1,5 +1,9 @@
 import * as v from "./validators.js";
 export declare const utils: {
+    flattenArray<T>(input: any[]): T[];
+    arrayGroupBy<T>(array: T[], key: keyof T): Record<string, T[]>;
+    removeDuplicatesArray<T>(array: T[]): T[];
+    memoize<T extends (...args: any[]) => any>(fn: T): T;
     formatDate: (date: Date, format?: string) => string;
     generateRandomId: (length?: number) => string;
     capitalize: (str: string) => string;
@@ -15,6 +19,7 @@ export declare const utils: {
     range: (start: number, end: number, step?: number) => number[];
     arrayMax: (arr: number[]) => number | undefined;
     arrayMin: (arr: number[]) => number | undefined;
+    clamp: (value: number, min: number, max: number) => number;
 };
 export declare const validators: {
     isAlpha(text: unknown): boolean;
@@ -30,7 +35,8 @@ export declare const validators: {
     isPastDate(date: unknown): boolean;
     isDateBefore(date: unknown, comparisonDate: unknown): boolean;
     isDateAfter(date: unknown, comparisonDate: unknown): boolean;
-    isEmail: (str: unknown) => boolean;
+    isEmail(str: unknown): boolean;
+    isBase64(str: unknown): boolean;
     isURL: (str: unknown) => boolean;
     isUUID: (str: unknown) => boolean;
     isStrongPassword: (str: unknown, options?: v.StrongPasswordOptions) => boolean;
@@ -40,9 +46,17 @@ export declare const validators: {
     isDate: (val: unknown) => boolean;
     isEmpty: (val: unknown) => boolean;
     isAlphanumeric: (str: unknown) => boolean;
+    isSlug: (str: unknown) => boolean;
+    isLatitude: (value: unknown) => boolean;
+    isLongitude: (value: unknown) => boolean;
+    isMimeType: (str: string) => boolean;
 };
 declare const _default: {
     utils: {
+        flattenArray<T>(input: any[]): T[];
+        arrayGroupBy<T>(array: T[], key: keyof T): Record<string, T[]>;
+        removeDuplicatesArray<T>(array: T[]): T[];
+        memoize<T extends (...args: any[]) => any>(fn: T): T;
         formatDate: (date: Date, format?: string) => string;
         generateRandomId: (length?: number) => string;
         capitalize: (str: string) => string;
@@ -58,6 +72,7 @@ declare const _default: {
         range: (start: number, end: number, step?: number) => number[];
         arrayMax: (arr: number[]) => number | undefined;
         arrayMin: (arr: number[]) => number | undefined;
+        clamp: (value: number, min: number, max: number) => number;
     };
     validators: {
         isAlpha(text: unknown): boolean;
@@ -73,7 +88,8 @@ declare const _default: {
         isPastDate(date: unknown): boolean;
         isDateBefore(date: unknown, comparisonDate: unknown): boolean;
         isDateAfter(date: unknown, comparisonDate: unknown): boolean;
-        isEmail: (str: unknown) => boolean;
+        isEmail(str: unknown): boolean;
+        isBase64(str: unknown): boolean;
         isURL: (str: unknown) => boolean;
         isUUID: (str: unknown) => boolean;
         isStrongPassword: (str: unknown, options?: v.StrongPasswordOptions) => boolean;
@@ -83,6 +99,10 @@ declare const _default: {
         isDate: (val: unknown) => boolean;
         isEmpty: (val: unknown) => boolean;
         isAlphanumeric: (str: unknown) => boolean;
+        isSlug: (str: unknown) => boolean;
+        isLatitude: (value: unknown) => boolean;
+        isLongitude: (value: unknown) => boolean;
+        isMimeType: (str: string) => boolean;
     };
 };
 export default _default;

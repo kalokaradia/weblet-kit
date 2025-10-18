@@ -1,20 +1,20 @@
 // 1.0.0
-export const isEmail = (str: unknown): boolean => {
-	if (typeof str !== "string" || str.trim() === "") {
-		return false;
-	}
+// export const isEmail = (str: unknown): boolean => {
+// 	if (typeof str !== "string" || str.trim() === "") {
+// 		return false;
+// 	}
 
-	const input = str.trim();
+// 	const input = str.trim();
 
-	// Lebih kompleks: validasi local-part dan domain, hindari karakter aneh, cek TLD minimal 2 huruf
-	const emailRegex =
-		/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/;
+// 	// Lebih kompleks: validasi local-part dan domain, hindari karakter aneh, cek TLD minimal 2 huruf
+// 	const emailRegex =
+// 		/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/;
 
-	// Hindari dua titik berturut-turut di local-part dan domain
-	if (input.includes("..")) return false;
+// 	// Hindari dua titik berturut-turut di local-part dan domain
+// 	if (input.includes("..")) return false;
 
-	return emailRegex.test(input);
-};
+// 	return emailRegex.test(input);
+// };
 
 export const isURL = (str: unknown): boolean => {
 	if (typeof str !== "string" || str.trim() === "") {
@@ -23,21 +23,72 @@ export const isURL = (str: unknown): boolean => {
 
 	const input = str.trim();
 
-	// Modern and lightweight check
+	// Daftar protokol yang dianggap valid
+	const validProtocols = new Set([
+		"http:",
+		"https:",
+		"ftp:",
+		"ftps:",
+		"sftp:",
+		"smtp:",
+		"imap:",
+		"pop3:",
+		"ssh:",
+		"telnet:",
+		"ws:",
+		"wss:",
+		"rtsp:",
+		"mms:",
+		"file:",
+		"data:",
+		"blob:",
+		"mailto:",
+		"news:",
+		"gopher:",
+		"irc:",
+		"magnet:",
+		"bitcoin:",
+		"ipfs:",
+		"dns:",
+		"tcp:",
+		"udp:",
+		"vpn:",
+		"chrome:",
+		"chrome-extension:",
+		"android-app:",
+		"intent:",
+		"market:",
+		"webcal:",
+		"rlogin:",
+		"ldap:",
+		"git:",
+		"svn:",
+		"jdbc:",
+		"jdbc:mysql:",
+		"jdbc:postgresql:",
+		"jdbc:oracle:",
+		"jdbc:sqlserver:",
+		"nfs:",
+		"smb:",
+		"tel:",
+		"fax:",
+		"geo:",
+		"skype:",
+		"spotify:",
+		"zoom:",
+	]);
+
+	// Modern check using URL.canParse
 	if (typeof URL.canParse === "function") {
 		if (!URL.canParse(input)) return false;
 		const protocol = new URL(input).protocol;
-		return protocol === "http:" || protocol === "https:" || protocol === "ftp:";
+		return validProtocols.has(protocol);
 	}
 
 	// Fallback for environments without URL.canParse
 	try {
 		const url = new URL(input);
-		return (
-			url.protocol === "http:" ||
-			url.protocol === "https:" ||
-			url.protocol === "ftp:"
-		);
+		return validProtocols.has(url.protocol);
 	} catch {
 		return false;
 	}
@@ -301,3 +352,125 @@ export function isDateAfter(date: unknown, comparisonDate: unknown): boolean {
 	if (!date1 || !date2) return false;
 	return date1 > date2;
 }
+
+// 2.1.0
+export function isEmail(str: unknown): boolean {
+	if (typeof str !== "string") return false;
+
+	const input = str.trim();
+	if (/[\x00-\x1F\x7F\u200B-\u200D\uFEFF]/.test(input)) return false;
+
+	const emailRegex =
+		/^(?=.{1,254}$)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[A-Za-z]{2,}$/;
+
+	if (!emailRegex.test(input)) return false;
+
+	const domain = input.split("@")[1];
+	if (domain && /[\u0400-\u04FF\u0370-\u03FF]/.test(domain)) return false;
+
+	return true;
+}
+
+export function isBase64(str: unknown): boolean {
+	if (typeof str !== "string") return false;
+
+	const input = str.trim();
+	if (!input) return false;
+
+	// Pola Base64 standar (karakter valid & padding opsional)
+	const base64Pattern =
+		/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
+
+	if (!base64Pattern.test(input)) return false;
+
+	try {
+		// Validasi struktural dengan decode → encode ulang
+		const decoded = atob(input);
+		return btoa(decoded) === input;
+	} catch {
+		return false;
+	}
+}
+
+export const isSlug = (str: unknown): boolean => {
+	if (typeof str !== "string") return false;
+
+	const input = str.trim();
+	if (!input) return false;
+
+	const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+	return slugPattern.test(input);
+};
+
+export const isLatitude = (value: unknown): boolean => {
+	return (
+		typeof value === "number" &&
+		Number.isFinite(value) &&
+		value >= -90 &&
+		value <= 90
+	);
+};
+
+export const isLongitude = (value: unknown): boolean => {
+	return (
+		typeof value === "number" &&
+		Number.isFinite(value) &&
+		value >= -180 &&
+		value <= 180
+	);
+};
+
+export const isMimeType = (str: string): boolean => {
+	if (typeof str !== "string") return false;
+
+	const input = str.trim();
+	if (!input) return false;
+
+	// Daftar lengkap top-level MIME types (berdasarkan RFC 6838 + praktik umum)
+	const validTypes = [
+		// Standar RFC
+		"application",
+		"audio",
+		"example",
+		"font",
+		"image",
+		"message",
+		"model",
+		"multipart",
+		"text",
+		"video",
+
+		// Ekstensi umum dan eksperimental
+		"chemical", // Digunakan dalam domain kimia (IUPAC, dll)
+		"drawing", // Beberapa sistem CAD
+		"x-conference", // MIME lama untuk data konferensi
+		"x-world", // Dulu untuk VRML dan sejenisnya
+		"inode", // Beberapa sistem UNIX-like
+		"x-epoc", // Format lama Symbian
+		"x-token", // Sistem auth custom
+		"x-script", // Script MIME
+		"x-binary", // Data biner tanpa tipe tertentu
+		"x-shockwave-flash",
+		"x-zip-compressed",
+		"x-quicktime",
+		"x-msdownload",
+		"x-font-ttf",
+		"x-font-woff",
+		"x-font-otf",
+		"x-font-woff2",
+		"x-font-type1",
+		"x-font-truetype",
+		"x-font-opentype",
+		"vnd", // Vendor-specific
+		"prs", // Personal / Private MIME tree (RFC 6838)
+		"x", // Ekstensi umum (custom)
+	];
+
+	const mimePattern = new RegExp(
+		`^(?:${validTypes.join("|")})/[a-z0-9.+-]{1,127}$`,
+		"i",
+	);
+
+	return mimePattern.test(input);
+};

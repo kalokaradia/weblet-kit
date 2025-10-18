@@ -11,6 +11,10 @@ Check if a string is a valid email address.
 
 ```js
 validators.isEmail("test@example.com"); // true
+validators.isEmail("test@.example.com"); // false
+validators.isEmail("test@.example..com"); // false
+validators.isEmail("test@example"); // false
+validators.isEmail("test@.com"); // false
 validators.isEmail("not-an-email"); // false
 ```
 
@@ -298,7 +302,7 @@ validators.isDateBefore(new Date(2022, 0), "2021-12-31"); // false
 
 ### isDateAfter()
 
-Check if the first date is after the second date. Accepts `Date`, ISO string, or timestamp for both arguments.
+Check if the first date is after the second date. Accepts `Date`, ISO string, or timestamp for both arguments.  
 **Signature:** `isDateAfter(date: unknown, comparisonDate: unknown): boolean`
 
 **Example:**
@@ -306,6 +310,83 @@ Check if the first date is after the second date. Accepts `Date`, ISO string, or
 ```js
 validators.isDateAfter("2021-01-01", "2020-01-01"); // true
 validators.isDateAfter("2020-12-31", new Date(2021, 0)); // false
+```
+
+### isBase64()
+
+Validates whether a string is a valid Base64-encoded value.  
+**Signature:** `isBase64(str: unknown): boolean`
+
+**Example:**
+
+```js
+validators.isBase64("TXkgbmFtZSBpcyBEYXZpZA=="); // true
+validators.isBase64("SSBsaWtlIGNvZGluZw=="); // true
+validators.isBase64("SSBsaWtlIGNvZGluZw==@"); // false
+validators.isBase64("SSBsaWtlIGNvZGluZw==-"); // true
+```
+
+### isSlug()
+
+Checks if a string is a valid slug (lowercase, hyphenated, URL-safe).  
+**Signature:** `isSlug(str: unknown): boolean`
+
+**Example:**
+
+```js
+validators.isSlug("produk-baru-2025"); // true
+validators.isSlug("Produk-Besar"); // false (contains uppercase letters)
+validators.isSlug("produk_baru"); // false (contains underscore)
+validators.isSlug("produk--baru"); // false (contains consecutive hyphens)
+validators.isSlug(""); // false (empty)
+validators.isSlug("   "); // false (only spaces)
+validators.isSlug("produk-123"); // true
+```
+
+### isLatitude()
+
+Validates if a number is a valid latitude coordinate (−90 to +90).  
+**Signature:** `isLatitude(value: unknown): boolean`
+
+**Example:**
+
+```js
+validators.isLatitude(-90); // true
+validators.isLatitude(90); // true
+validators.isLatitude(91); // false
+validators.isLatitude("90"); // false
+```
+
+### isLongitude()
+
+Validates if a number is a valid longitude coordinate (−180 to +180).  
+**Signature:** `isLongitude(value: unknown): boolean`
+
+**Example:**
+
+```js
+validators.isLongitude(-180); // true
+validators.isLongitude(180); // true
+validators.isLongitude(181); // false
+validators.isLongitude("180"); // false
+```
+
+### isMimeType()
+
+Checks if a string matches the MIME type format (e.g., image/png, application/json)  
+**Signature:** `isMimeType(str: string): boolean`
+
+```js
+validators.isMimeType("image/png"); // true
+validators.isMimeType("application/json"); // true
+validators.isMimeType("video/mp4"); // true
+validators.isMimeType("text/html"); // true
+validators.isMimeType("x-font-woff2/woff2"); // true
+validators.isMimeType("IMAGE/PNG"); // true (case-insensitive)
+validators.isMimeType("image/"); // false (subtype is empty)
+validators.isMimeType("image/png; charset=utf-8"); // false (there is a parameter)
+validators.isMimeType("text/html/extra"); // false (too many slashes)
+validators.isMimeType(""); // false
 ```
 
 ## Utils
@@ -458,8 +539,7 @@ Split an array into smaller arrays of a given size.
 **Example:**
 
 ```js
-utils.chunkArray([1, 2, 3, 4, 5], 2);
-// [[1, 2], [3, 4], [5]]
+utils.chunkArray([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
 ```
 
 ### deepClone()
@@ -470,11 +550,7 @@ Create a deep copy of an object or array.
 **Example:**
 
 ```js
-const obj = { a: 1, b: { c: 2 } };
-const copy = utils.deepClone(obj);
-
-console.log(copy);
-// { a: 1, b: { c: 2 } }
+utils.deepClone({ a: 1, b: { c: 2 } }); // { a: 1, b: { c: 2 } }
 ```
 
 ### range()
@@ -490,4 +566,101 @@ utils.range(1, 5);
 
 utils.range(5, 1, -1);
 // [5, 4, 3, 2]
+```
+
+### flattenArray()
+
+Recursively flattens nested arrays into a single-level array.  
+**Signature:** `flattenArray<T>(input: any[]): T[]`
+
+**Example:**
+
+```js
+utils.flattenArray([1, [2, [3, 4, [5], 6], 7, 8], 9, 10]); // [1,2,3,4,5,6,7,8,9,10]
+
+utils.flattenArray([1, ["2", [true, false]]]); // [1,"2",true,false]
+```
+
+### arrayGroupBy()
+
+Recursively flattens nested arrays into a single-level array.  
+**Signature:** `arrayGroupBy<T>(array: T[], key: keyof T): Record<string, T[]>`
+
+**Example:**
+
+```js
+utils.arrayGroupBy(
+	[
+		{ name: "Alice", role: "admin" },
+		{ name: "Bob", role: "user" },
+		{ name: "Charlie", role: "admin" },
+		{ name: "David", role: "user" },
+	],
+	"role"
+);
+
+/* Output:
+{
+  admin: [
+    {
+      name: "Alice",
+      role: "admin",
+    }, {
+      name: "Charlie",
+      role: "admin",
+    }
+  ],
+  user: [
+    {
+      name: "Bob",
+      role: "user",
+    }, {
+      name: "David",
+      role: "user",
+    }
+  ],
+} */
+```
+
+### removeDuplicatesArray()
+
+Removes duplicate values from an array using Set.  
+**Signature:** `removeDuplicatesArray<T>(array: T[]): T[]`
+
+**Example:**
+
+```js
+utils.removeDuplicatesArray([1, 1, 2, 2, 3, 3, 4, 4, 5, 5]); // [1,2,3,4,5]
+```
+
+### clamp()
+
+Restricts a number to stay within a defined range (min to max).  
+**Signature:** `clamp(value: number, min: number, max: number): number`
+
+**Example:**
+
+```js
+utils.clamp(5, 1, 10); // 5
+utils.clamp(0, 1, 10); // 1
+utils.clamp(15, 1, 10); // 10
+```
+
+### memoize()
+
+Caches function results based on arguments to optimize repeated calls.  
+**Signature:** `memoize<T extends (...args: any[]) => any>(fn: T): T`
+
+**Example:**
+
+```js
+function expensiveCalc(n: number): number {
+	console.log("Calculating...");
+	return n * n;
+}
+
+const fastCalc = utils.memoize(expensiveCalc);
+
+console.log(fastCalc(5)); // “Calculating...” then 25
+console.log(fastCalc(5)); // immediately 25, without “Calculating...”
 ```
