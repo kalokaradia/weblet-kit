@@ -185,7 +185,7 @@ export function flattenArray<T>(input: any[]): T[] {
 	const flatten = (arr: any[]) => {
 		for (const item of arr) {
 			if (Array.isArray(item)) {
-				flatten(item); // rekursif untuk array dalam array
+				flatten(item); // recursive for arrays within arrays
 			} else {
 				result.push(item);
 			}
@@ -199,7 +199,7 @@ export function flattenArray<T>(input: any[]): T[] {
 export function arrayGroupBy<T>(array: T[], key: keyof T): Record<string, T[]> {
 	return array.reduce(
 		(acc, item) => {
-			const groupKey = String(item[key]); // pastikan key berupa string
+			const groupKey = String(item[key]); // ensure that the key is a string
 			if (!acc[groupKey]) {
 				acc[groupKey] = [];
 			}
@@ -217,7 +217,7 @@ export function removeDuplicatesArray<T>(array: T[]): T[] {
 export const clamp = (value: number, min: number, max: number): number => {
 	if (![value, min, max].every(Number.isFinite)) return NaN;
 
-	// Tukar otomatis jika parameter salah urut
+	// Automatically swap if parameters are out of order
 	if (min > max) [min, max] = [max, min];
 
 	return Math.min(Math.max(value, min), max);
@@ -231,8 +231,8 @@ export function memoize<T extends (...args: any[]) => any>(fn: T): T {
 	const cache = new Map<string, ReturnType<T>>();
 
 	const memoized = (...args: Parameters<T>): ReturnType<T> => {
-		// Gunakan JSON.stringify untuk membuat key deterministik
-		// Aman untuk argumen primitif dan object literal sederhana
+		// Use JSON.stringify to create deterministic keys
+		// Safe for primitive arguments and simple object literals
 		const key = args.length ? JSON.stringify(args) : "__noargs__";
 
 		if (cache.has(key)) {
@@ -244,7 +244,6 @@ export function memoize<T extends (...args: any[]) => any>(fn: T): T {
 		return result;
 	};
 
-	// Optional: expose cache untuk keperluan debugging atau manual clear
 	Object.defineProperty(memoized, "cache", {
 		value: cache,
 		writable: false,
@@ -253,4 +252,88 @@ export function memoize<T extends (...args: any[]) => any>(fn: T): T {
 	});
 
 	return memoized as T;
+}
+
+// 2.2.0
+export function mergeDeep<T extends object, U extends object>(
+	target: T,
+	source: U,
+): T & U {
+	if (!source) return target as T & U;
+
+	for (const key of Object.keys(source)) {
+		const sourceValue = (source as Record<string, any>)[key];
+		const targetValue = (target as Record<string, any>)[key];
+
+		if (isObject(sourceValue) && isObject(targetValue)) {
+			(target as Record<string, any>)[key] = mergeDeep(
+				targetValue,
+				sourceValue,
+			);
+		} else {
+			(target as Record<string, any>)[key] = sourceValue;
+		}
+	}
+
+	return target as T & U;
+}
+
+function isObject(value: unknown): value is Record<string, any> {
+	return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+export function omit<T extends object, K extends keyof T>(
+	obj: T,
+	keys: K[],
+): Omit<T, K> {
+	const result = {} as Omit<T, K>;
+	for (const key of Object.keys(obj)) {
+		if (!keys.includes(key as K)) {
+			(result as any)[key] = obj[key as keyof T];
+		}
+	}
+	return result;
+}
+
+export function pick<T extends object, K extends keyof T>(
+	obj: T,
+	keys: K[],
+): Pick<T, K> {
+	const result = {} as Pick<T, K>;
+	for (const key of keys) {
+		if (key in obj) {
+			result[key] = obj[key];
+		}
+	}
+	return result;
+}
+
+export function toTitleCase(input: unknown): string {
+	if (typeof input !== "string") return "";
+
+	return input
+		.toLowerCase()
+		.replace(/\b\w+/g, (word) => word.charAt(0).toUpperCase() + word.slice(1));
+}
+
+export function truncate(input: unknown, maxLength: number): string {
+	if (
+		typeof input !== "string" ||
+		typeof maxLength !== "number" ||
+		maxLength < 0
+	)
+		return "";
+
+	const str = input.trim();
+	if (str.length <= maxLength) return str;
+
+	return str.slice(0, maxLength - 3) + "...";
+}
+
+export function generateRandomInt(min: number, max: number): number {
+	if (!Number.isInteger(min) || !Number.isInteger(max))
+		throw new Error("Both min and max must be integers.");
+	if (max < min) throw new Error("max must be greater than or equal to min.");
+
+	return Math.floor(Math.random() * (max - min + 1)) + min;
 }

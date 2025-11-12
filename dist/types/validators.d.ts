@@ -35,3 +35,7 @@ export declare const isSlug: (str: unknown) => boolean;
 export declare const isLatitude: (value: unknown) => boolean;
 export declare const isLongitude: (value: unknown) => boolean;
 export declare const isMimeType: (str: string) => boolean;
+export declare function isAscii(input: unknown, mode?: "ascii" | "printable" | "extended"): boolean;
+export declare function isTime(input: unknown): boolean;
+export declare function isHex(input: unknown): boolean;
+export declare function isFileExtension(input: unknown): boolean;

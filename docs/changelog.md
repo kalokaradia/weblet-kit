@@ -5,6 +5,58 @@ This project adheres to Semantic Versioning.
 
 ---
 
+## [2.2.0] - 2025-11-12
+
+### Added
+
+#### Validators
+
+-   `isAscii` → Checks whether a string contains only ASCII characters (supports `ascii`, `printable`, and `extended` modes).
+-   `isTime` → Validates whether a string follows `HH:mm` or `HH:mm:ss` 24-hour time format.
+-   `isHex` → Checks if a string is a valid hexadecimal number (not just for colors).
+-   `isFileExtension` → Validates if a string is a valid file extension (e.g., `.js`, `png`).
+
+#### Utils
+
+-   `mergeDeep` → Recursively merges two objects into one, preserving nested properties.
+-   `omit` → Creates a new object without the specified keys (Lodash-style helper).
+-   `pick` → Creates a new object containing only the specified keys (Lodash-style helper).
+-   `toTitleCase` → Converts any string into Title Case (capitalizes first letter of each word).
+-   `truncate` → Shortens a string to a specified maximum length and adds an ellipsis if truncated.
+-   `generateRandomInt` → Generates a random integer between a minimum and maximum (inclusive).
+
+### Improved
+
+Internal type definitions and build process updated for better Vite + TypeScript integration.
+Ensured generated `.d.ts` files are preserved in build output.
+
+### Example Snippets
+
+#### mergeDeep
+
+```js
+const a = { user: { name: "A" }, roles: ["admin"] };
+const b = { user: { age: 15 } };
+const merged = utils.mergeDeep(a, b);
+console.log(merged); // { user: { name: "A", age: 15 }, roles: ["admin"] }
+```
+
+#### toTitleCase
+
+```js
+utils.toTitleCase("hello world from purworejo");
+// "Hello World From Purworejo"
+```
+
+#### truncate
+
+```js
+utils.truncate("This is a long sentence", 10);
+// "This is..."
+```
+
+---
+
 ## [2.1.0] - 2025-10-12
 
 ### Added

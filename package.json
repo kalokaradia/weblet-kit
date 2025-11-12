@@ -1,6 +1,6 @@
 {
 	"name": "weblet-kit",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"description": "Weblet-Kit is a lightweight JavaScript utility toolkit providing handy validators and everyday helpers. Modular, dependency-free, and developer-first — perfect for web developers who want ready-to-use snippets without heavy frameworks.",
 	"repository": {
 		"url": "https://github.com/kalokaradia/weblet-kit",
@@ -23,7 +23,6 @@
 		"esm",
 		"modular",
 		"dependency-free",
-		"frontend",
 		"web-development",
 		"weblet"
 	],
@@ -35,14 +34,13 @@
 	"exports": {
 		".": {
 			"import": "./dist/weblet-kit.min.js",
-			"require": "./dist/weblet-kit.min.js",
-			"types": "./dist/weblet-kit.d.ts"
+			"types": "./dist/types/weblet-kit.d.ts"
 		}
 	},
 	"scripts": {
-		"build": "bun run build:types && bun run build:bundle",
+		"build": "bun run build:vite && bun run build:types",
 		"build:types": "tsc",
-		"build:bundle": "bun build ./src/weblet-kit.ts --minify --outfile=./dist/weblet-kit.min.js"
+		"build:vite": "vite build"
 	},
 	"files": [
 		"dist/",
@@ -51,6 +49,7 @@
 	],
 	"devDependencies": {
 		"@types/node": "^24.6.2",
-		"typescript": "^5.9.3"
+		"typescript": "^5.9.3",
+		"vite": "^7.2.2"
 	}
 }

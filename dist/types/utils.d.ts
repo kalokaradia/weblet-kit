@@ -18,3 +18,9 @@ export declare function arrayGroupBy<T>(array: T[], key: keyof T): Record<string
 export declare function removeDuplicatesArray<T>(array: T[]): T[];
 export declare const clamp: (value: number, min: number, max: number) => number;
 export declare function memoize<T extends (...args: any[]) => any>(fn: T): T;
+export declare function mergeDeep<T extends object, U extends object>(target: T, source: U): T & U;
+export declare function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K>;
+export declare function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>;
+export declare function toTitleCase(input: unknown): string;
+export declare function truncate(input: unknown, maxLength: number): string;
+export declare function generateRandomInt(min: number, max: number): number;

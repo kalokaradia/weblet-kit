@@ -389,6 +389,74 @@ validators.isMimeType("text/html/extra"); // false (too many slashes)
 validators.isMimeType(""); // false
 ```
 
+---
+
+### isAscii()
+
+Checks whether a string contains only ASCII characters.
+**Signature:**
+`isAscii(input: unknown, mode: "ascii" | "printable" | "extended" = "ascii"): boolean`
+
+**Example:**
+
+```js
+utils.isAscii("Hello"); // true
+utils.isAscii("Héllo"); // false
+utils.isAscii("Hello", "printable"); // true
+utils.isAscii("©", "extended"); // true
+```
+
+---
+
+### isTime()
+
+Validates a string as a time in `HH:mm` or `HH:mm:ss` 24-hour format.
+**Signature:**
+`isTime(input: unknown): boolean`
+
+**Example:**
+
+```js
+utils.isTime("13:45"); // true
+utils.isTime("23:59:59"); // true
+utils.isTime("25:00"); // false
+utils.isTime("9:00"); // false (missing leading zero)
+```
+
+---
+
+### isHex()
+
+Checks if a string is a valid hexadecimal value (not limited to color codes).
+**Signature:**
+`isHex(input: unknown): boolean`
+
+**Example:**
+
+```js
+utils.isHex("0xFFEEAA"); // true
+utils.isHex("deadbeef"); // true
+utils.isHex("GHIJK"); // false
+utils.isHex("#FFEEAA"); // false (hash not supported)
+```
+
+---
+
+### isFileExtension()
+
+Validates a file extension string, optionally starting with a dot.
+**Signature:**
+`isFileExtension(input: unknown): boolean`
+
+**Example:**
+
+```js
+utils.isFileExtension(".js"); // true
+utils.isFileExtension("png"); // true
+utils.isFileExtension(".tar.gz"); // false (multi-dot not supported)
+utils.isFileExtension("invalid/ext"); // false
+```
+
 ## Utils
 
 ### formatDate()
@@ -663,4 +731,103 @@ const fastCalc = utils.memoize(expensiveCalc);
 
 console.log(fastCalc(5)); // “Calculating...” then 25
 console.log(fastCalc(5)); // immediately 25, without “Calculating...”
+```
+
+---
+
+### mergeDeep()
+
+Recursively merges two objects into one.
+**Signature:**
+`mergeDeep<T extends object, U extends object>(target: T, source: U): T & U`
+
+**Example:**
+
+```js
+const a = { user: { name: "A" }, roles: ["admin"] };
+const b = { user: { age: 15 } };
+
+const result = utils.mergeDeep(a, b);
+console.log(result); // { user: { name: "A", age: 15 }, roles: ["admin"] }
+```
+
+---
+
+### omit()
+
+Creates a new object without the specified keys.
+**Signature:**
+`omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K>`
+
+**Example:**
+
+```js
+const user = { id: 1, name: "Kaloka", password: "secret" };
+const safe = utils.omit(user, ["password"]);
+
+console.log(safe); // { id: 1, name: "Kaloka" }
+```
+
+---
+
+### pick()
+
+Creates a new object containing only the specified keys.
+**Signature:**
+`pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>`
+
+**Example:**
+
+```js
+const user = { id: 1, name: "Kaloka", password: "secret" };
+const info = utils.pick(user, ["id", "name"]);
+
+console.log(info); // { id: 1, name: "Kaloka" }
+```
+
+---
+
+### toTitleCase()
+
+Converts a string into Title Case format.
+**Signature:**
+`toTitleCase(input: unknown): string`
+
+**Example:**
+
+```js
+utils.toTitleCase("hello world from purworejo");
+// "Hello World From Purworejo"
+```
+
+---
+
+### truncate()
+
+Shortens a string to a maximum length and appends an ellipsis (`...`) if truncated.
+**Signature:**
+`truncate(input: unknown, maxLength: number): string`
+
+**Example:**
+
+```js
+utils.truncate("This is a long sentence", 10);
+// "This is..."
+utils.truncate("Short", 10);
+// "Short"
+```
+
+---
+
+### generateRandomInt()
+
+Generates a random integer between `min` and `max` (inclusive).
+**Signature:**
+`generateRandomInt(min: number, max: number): number`
+
+**Example:**
+
+```js
+utils.generateRandomInt(1, 5); // e.g. 3
+utils.generateRandomInt(10, 10); // always 10
 ```

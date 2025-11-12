@@ -6,11 +6,9 @@
 
 // 	const input = str.trim();
 
-// 	// Lebih kompleks: validasi local-part dan domain, hindari karakter aneh, cek TLD minimal 2 huruf
 // 	const emailRegex =
 // 		/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/;
 
-// 	// Hindari dua titik berturut-turut di local-part dan domain
 // 	if (input.includes("..")) return false;
 
 // 	return emailRegex.test(input);
@@ -110,12 +108,12 @@ export interface StrongPasswordOptions {
 	requireLowercase?: boolean;
 	requireNumber?: boolean;
 	requireSpecialChar?: boolean;
-	specialChars?: string; // biar custom: misal "!@#$%&" aja
+	specialChars?: string; // for customization, e.g., "!@#$%&"
 }
 
 export const isStrongPassword = (
 	str: unknown,
-	options: StrongPasswordOptions = {},
+	options: StrongPasswordOptions = {}
 ): boolean => {
 	if (typeof str !== "string") return false;
 	const s = str.trim();
@@ -227,7 +225,7 @@ export function isIP(text: unknown): boolean {
 		});
 	}
 
-	// IPv6: Gunakan pendekatan parsing sederhana karena regex penuh sangat kompleks
+	// IPv6: Use a simple parsing approach because a full regex is very complex
 	try {
 		const addr = ip.includes(":") ? ip : null;
 		if (!addr) return false;
@@ -260,7 +258,8 @@ export function isDomain(text: unknown): boolean {
 	return labels.every((label, i) => {
 		if (label.length === 0 || label.length > 63) return false;
 		if (label.startsWith("-") || label.endsWith("-")) return false;
-		if (i === labels.length - 1 && !/^[a-zA-Z]{2,}$/.test(label)) return false; // TLD harus huruf saja
+		if (i === labels.length - 1 && !/^[a-zA-Z]{2,}$/.test(label))
+			return false; // TLD harus huruf saja
 		return /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(label);
 	});
 }
@@ -268,7 +267,6 @@ export function isDomain(text: unknown): boolean {
 export function isPhoneNumber(text: unknown): boolean {
 	if (typeof text !== "string") return false;
 	const cleaned = text.replace(/[\s\-\(\)]/g, "");
-	// Format internasional: +6281234567890 (minimal 10 digit setelah kode negara)
 	const phoneRegex = /^\+?[1-9]\d{9,14}$/;
 	return phoneRegex.test(cleaned);
 }
@@ -293,7 +291,7 @@ export function isCreditCard(text: unknown): boolean {
 	return sum % 10 === 0;
 }
 
-// Helper untuk normalisasi tanggal
+// Helper function for date normalization
 export function _normalizeDate(date: unknown): Date | null {
 	if (date instanceof Date) {
 		return isNaN(date.getTime()) ? null : date;
@@ -323,7 +321,7 @@ export function isPastDate(date: unknown): boolean {
 	return normalized < new Date();
 }
 
-// Kode yang dikomentari tetap dipertahankan sebagai referensi historis
+// The commented code is retained for historical reference.
 // export function isBefore(date: unknown, comparisonDate: unknown): boolean {
 // 	const date1 = _normalizeDate(date);
 // 	const date2 = _normalizeDate(comparisonDate);
@@ -377,14 +375,13 @@ export function isBase64(str: unknown): boolean {
 	const input = str.trim();
 	if (!input) return false;
 
-	// Pola Base64 standar (karakter valid & padding opsional)
+	// Standard Base64 pattern (valid characters & optional padding)
 	const base64Pattern =
 		/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
 
 	if (!base64Pattern.test(input)) return false;
 
 	try {
-		// Validasi struktural dengan decode → encode ulang
 		const decoded = atob(input);
 		return btoa(decoded) === input;
 	} catch {
@@ -427,9 +424,8 @@ export const isMimeType = (str: string): boolean => {
 	const input = str.trim();
 	if (!input) return false;
 
-	// Daftar lengkap top-level MIME types (berdasarkan RFC 6838 + praktik umum)
 	const validTypes = [
-		// Standar RFC
+		// RFC 2045 & RFC 2046 standard types
 		"application",
 		"audio",
 		"example",
@@ -441,16 +437,16 @@ export const isMimeType = (str: string): boolean => {
 		"text",
 		"video",
 
-		// Ekstensi umum dan eksperimental
-		"chemical", // Digunakan dalam domain kimia (IUPAC, dll)
-		"drawing", // Beberapa sistem CAD
-		"x-conference", // MIME lama untuk data konferensi
-		"x-world", // Dulu untuk VRML dan sejenisnya
-		"inode", // Beberapa sistem UNIX-like
-		"x-epoc", // Format lama Symbian
-		"x-token", // Sistem auth custom
-		"x-script", // Script MIME
-		"x-binary", // Data biner tanpa tipe tertentu
+		// Experimental & non-standard types
+		"chemical",
+		"drawing",
+		"x-conference",
+		"x-world",
+		"inode",
+		"x-epoc",
+		"x-token",
+		"x-script",
+		"x-binary",
 		"x-shockwave-flash",
 		"x-zip-compressed",
 		"x-quicktime",
@@ -462,15 +458,58 @@ export const isMimeType = (str: string): boolean => {
 		"x-font-type1",
 		"x-font-truetype",
 		"x-font-opentype",
-		"vnd", // Vendor-specific
-		"prs", // Personal / Private MIME tree (RFC 6838)
-		"x", // Ekstensi umum (custom)
+		"vnd",
+		"prs",
+		"x",
 	];
 
 	const mimePattern = new RegExp(
 		`^(?:${validTypes.join("|")})/[a-z0-9.+-]{1,127}$`,
-		"i",
+		"i"
 	);
 
 	return mimePattern.test(input);
 };
+
+// 2.2.0
+export function isAscii(
+	input: unknown,
+	mode: "ascii" | "printable" | "extended" = "ascii"
+): boolean {
+	if (typeof input !== "string") return false;
+
+	const ranges = {
+		ascii: /^[\x00-\x7F]*$/, // 0–127 → Full ASCII
+		printable: /^[\x20-\x7E]*$/, // 32–126 → Printable characters
+		extended: /^[\x00-\xFF]*$/, // 0–255 → Extended ASCII
+	};
+
+	return ranges[mode].test(input);
+}
+
+export function isTime(input: unknown): boolean {
+	if (typeof input !== "string") return false;
+
+	// 24 hours only
+	const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)(:([0-5]\d))?$/;
+
+	return timeRegex.test(input.trim());
+}
+
+export function isHex(input: unknown): boolean {
+	if (typeof input !== "string") return false;
+
+	const str = input.trim();
+
+	// Valid hex: optional "0x" prefix, then 1+ hex digits
+	return /^(0x)?[0-9a-fA-F]+$/.test(str);
+}
+
+export function isFileExtension(input: unknown): boolean {
+	if (typeof input !== "string") return false;
+
+	// Ekstensi umum: alfanumerik, boleh ada titik di depan
+	const extRegex = /^\.?[a-zA-Z0-9]+$/;
+
+	return extRegex.test(input.trim());
+}

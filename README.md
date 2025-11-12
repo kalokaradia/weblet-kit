@@ -1,4 +1,6 @@
-<p align='center'><img src="./icon.svg" style="width: 180px; height: 180px; " /></p>
+<p align="center">
+  <img src="./icon.svg" width="180" height="180" />
+</p>
 
 # <p  align='center'>WEBLET-KIT</p>
 

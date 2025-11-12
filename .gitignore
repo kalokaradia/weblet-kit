@@ -2,6 +2,7 @@ node_modules/
 build/
 coverage/
 # tests/
+# src/
 .env
 *.log
 *.tmp
@@ -17,5 +18,6 @@ bun.lock
 *.bak
 *.orig
 *.rej
+tests/
 __tests__/
 __mocks__/
