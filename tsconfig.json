@@ -6,6 +6,7 @@
 		"declarationDir": "./dist/types",
 		"emitDeclarationOnly": true,
 		"outDir": "./dist",
+		"rootDir": "./src",
 		"strict": true,
 		"moduleResolution": "Bundler",
 		"esModuleInterop": true

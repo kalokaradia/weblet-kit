@@ -1,0 +1,29 @@
+---
+title: Array utilities
+description: Public array and collection helper functions.
+---
+
+All functions are named root exports and members of `utils`.
+
+| Function and signature | Parameters | Return and behavior |
+| --- | --- | --- |
+| `chunkArray<T>(array: T[], size: number): T[][]` | Array; maximum group size. | Consecutive slices; the last may be shorter. Invalid array or non-positive size returns `[]`. |
+| `flattenArray<T>(input: any[]): T[]` | Nested array. | Recursively flattens nested arrays into a new array. |
+| `arrayGroupBy<T>(array: T[], key: keyof T): Record<string, T[]>` | Items and property key. | Groups by `String(item[key])`; each group preserves encounter order. |
+| `removeDuplicatesArray<T>(array: T[]): T[]` | Array. | New array deduplicated with `Set` (SameValueZero equality; first occurrence order retained). |
+| `shuffleArray<T>(arr: T[]): T[]` | Array. | Fisher–Yates shuffled copy; input is not mutated. Non-array runtime input returns `[]`. |
+| `sortNumbers(arr: number[], order: 'asc' \| 'desc' = 'asc'): number[]` | Numbers and sort order. | Sorted copy; default ascending. Non-array runtime input returns `[]`. |
+| `arrayMax(arr: number[]): number \| undefined` | Number array. | Maximum; `undefined` for an empty or non-array runtime input. |
+| `arrayMin(arr: number[]): number \| undefined` | Number array. | Minimum; `undefined` for an empty or non-array runtime input. |
+| `average(arr: number[]): number` | Number array. | Arithmetic mean; `0` for an empty or non-array runtime input. |
+| `range(start: number, end: number, step = 1): number[]` | Start, exclusive end, optional step. | Values progress toward but exclude `end`; incompatible step direction, zero step, or non-number inputs return `[]`. |
+
+```ts
+import { chunkArray, arrayGroupBy, range } from 'weblet-kit';
+
+chunkArray([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
+arrayGroupBy([{ kind: 'a', id: 1 }, { kind: 'b', id: 2 }], 'kind');
+range(5, 0, -2); // [5, 3, 1]
+```
+
+`range` does not explicitly reject `NaN` or infinite values; use finite numeric inputs. `arrayMax` and `arrayMin` use JavaScript `Math.max` / `Math.min`, so large arrays may encounter the engine's argument limit.

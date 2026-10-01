@@ -1,0 +1,24 @@
+---
+title: Installation
+description: Add weblet-kit to an npm, pnpm, Yarn, or Bun project.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Install the published package with your package manager:
+
+<Tabs>
+  <TabItem label="npm">`npm install weblet-kit`</TabItem>
+  <TabItem label="pnpm">`pnpm add weblet-kit`</TabItem>
+  <TabItem label="Yarn">`yarn add weblet-kit`</TabItem>
+  <TabItem label="Bun">`bun add weblet-kit`</TabItem>
+</Tabs>
+
+The package entry point is ESM and ships TypeScript declarations. It has no runtime dependencies. The package manifest does not currently declare a minimum Node.js or browser version.
+
+Use the package root for imports; no subpath exports are declared:
+
+```ts
+import { chunkArray, isEmail } from 'weblet-kit';
+```
+
+See [Getting started](/getting-started/) for named and grouped imports, or [Usage](/usage/) for examples.

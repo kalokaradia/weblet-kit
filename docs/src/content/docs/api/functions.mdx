@@ -1,0 +1,20 @@
+---
+title: Function utilities
+description: Debounce, throttle, and memoize function calls.
+---
+
+| Function and signature | Parameters | Return and behavior |
+| --- | --- | --- |
+| `debounce<T extends (...args: any[]) => any>(func: T, delay: number): (...args: Parameters<T>) => void` | Function and timeout delay in milliseconds. | Returns a wrapper that clears the previous timer and calls `func` after calls stop for `delay`. The wrapper returns `void`; callback result is not returned. |
+| `throttle<T extends (...args: any[]) => any>(func: T, limit: number): (...args: Parameters<T>) => void` | Function and interval in milliseconds. | Calls immediately, then ignores calls until the interval expires. Wrapper returns `void`; ignored calls are not queued. |
+| `memoize<T extends (...args: any[]) => any>(fn: T): T` | Function. | Caches results using `JSON.stringify(args)` as the key; throws `TypeError` when input is not a function. |
+
+```ts
+import { debounce, throttle, memoize } from 'weblet-kit';
+
+const saveLater = debounce((value: string) => console.log(value), 200);
+const onResize = throttle(() => console.log('resize'), 100);
+const square = memoize((value: number) => value * value);
+```
+
+The wrappers call callbacks with `this` set to `undefined`; they do not forward a caller's `this`. `debounce` and `throttle` do not expose `cancel` or `flush`. Memoization keys can collide for values that stringify identically, and arguments unsupported by `JSON.stringify` (such as circular structures or `BigInt`) can throw. The memoized function exposes an internal `cache` property at runtime, although it is absent from the declared function type.

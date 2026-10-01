@@ -1,0 +1,82 @@
+---
+title: Validators
+description: Public format, value, and date validators.
+---
+
+Validators return booleans. Except where noted, their input parameter is `unknown` and invalid types return `false`.
+
+## Format validators
+
+| Function and signature | Checks |
+| --- | --- |
+| `isEmail(value: unknown): boolean` | Trimmed conventional email syntax with ASCII domain labels and alphabetic TLD of at least two characters. |
+| `isURL(value: unknown): boolean` | Parseable URL with a protocol from the implementation's allowlist (including `http:`, `https:`, `ftp:`, `mailto:`, and others). |
+| `isUUID(value: unknown): boolean` | UUID version 1–5 with valid variant bits. |
+| `isStrongPassword(value: unknown, options?: StrongPasswordOptions): boolean` | Trimmed length and configured character-class requirements. |
+| `isIP(value: unknown): boolean` | IPv4 with canonical decimal octets, or the implementation's simple IPv6 group check. |
+| `isDomain(value: unknown): boolean` | At least two labels, each at most 63 chars; total at most 253; final TLD is letters only (at least two). |
+| `isPhoneNumber(value: unknown): boolean` | 10–15 digits, optional leading `+`; whitespace, hyphens, and parentheses are ignored. |
+| `isCreditCard(value: unknown): boolean` | 13–19 digits after non-digits are removed, passing the Luhn checksum. |
+| `isBase64(value: unknown): boolean` | Non-empty standard Base64 with valid padding; trims surrounding whitespace and checks browser `atob`/`btoa`. |
+| `isSlug(value: unknown): boolean` | Trimmed lowercase letters, digits, and single internal hyphens. |
+| `isMimeType(value: string): boolean` | Type/subtype syntax whose type is in a built-in allowlist. |
+| `isFileExtension(value: unknown): boolean` | One or more alphanumeric characters, optionally preceded by a dot. |
+| `isHex(value: unknown): boolean` | Hex digits, optionally prefixed by `0x`. |
+| `isHexColor(value: unknown): boolean` | `#` plus exactly 3 or 6 hexadecimal digits. |
+| `isJSON(value: unknown): boolean` | A string accepted by `JSON.parse`; the parsed value may be any JSON value. |
+| `isTime(value: unknown): boolean` | Trimmed 24-hour `HH:mm` or `HH:mm:ss`. |
+| `isAscii(value: unknown, mode: 'ascii' \| 'printable' \| 'extended' = 'ascii'): boolean` | ASCII code points 0–127, printable 32–126, or extended 0–255. |
+
+## Value validators
+
+| Function and signature | Checks |
+| --- | --- |
+| `isNumber(value: unknown): boolean` | Finite JavaScript number; rejects `NaN` and infinities. |
+| `isInteger(value: unknown): boolean` | Finite integer number. |
+| `isBoolean(value: unknown): boolean` | Boolean value or exact strings `'true'` / `'false'`. |
+| `isEmpty(value: unknown): boolean` | `null`, `undefined`, empty string/array, empty `Map`/`Set`, or object with no enumerable own string keys. |
+| `isAlpha(value: unknown): boolean` | Trimmed one-or-more ASCII letters. |
+| `isAlphanumeric(value: unknown): boolean` | Trimmed one-or-more ASCII letters or digits. |
+| `isNumeric(value: unknown): boolean` | Trimmed one-or-more ASCII digits in a string (not a number value). |
+| `isLatitude(value: unknown): boolean` | Finite number from -90 through 90 inclusive. |
+| `isLongitude(value: unknown): boolean` | Finite number from -180 through 180 inclusive. |
+
+## Date validators
+
+| Function and signature | Checks |
+| --- | --- |
+| `isDate(value: unknown): boolean` | Valid `Date`, or string/number accepted by the JavaScript `Date` constructor. |
+| `isFutureDate(date: unknown): boolean` | Date-like value strictly later than current time. |
+| `isPastDate(date: unknown): boolean` | Date-like value strictly earlier than current time. |
+| `isDateBefore(date: unknown, comparisonDate: unknown): boolean` | First parsed instant strictly before second. |
+| `isDateAfter(date: unknown, comparisonDate: unknown): boolean` | First parsed instant strictly after second. |
+
+```ts
+import { isEmail, isStrongPassword, isDateAfter } from 'weblet-kit';
+import type { StrongPasswordOptions } from 'weblet-kit';
+
+const passwordRules: StrongPasswordOptions = { minLength: 12, requireSpecialChar: false };
+isEmail('hello@example.com');
+isStrongPassword('ExamplePassword123', passwordRules);
+isDateAfter('2025-01-02', '2025-01-01');
+```
+
+## Password options
+
+```ts
+interface StrongPasswordOptions {
+  minLength?: number;             // default 8
+  maxLength?: number;             // default 128
+  requireUppercase?: boolean;     // default true
+  requireLowercase?: boolean;     // default true
+  requireNumber?: boolean;        // default true
+  requireSpecialChar?: boolean;   // default true
+  specialChars?: string;          // default punctuation character set
+}
+```
+
+`isStrongPassword` trims input before counting length and checking character classes. A malformed `specialChars` string can cause `RegExp` construction to throw; this function is a convenience check, not a full password policy engine.
+
+## Scope notes
+
+`isIP` uses a simplified IPv6 check and should not be treated as a complete standards parser. `isURL` only accepts parseable URLs using its explicit scheme allowlist; accepting a scheme says nothing about whether it is safe to navigate to. `isMimeType` validates against a hard-coded type list rather than the full evolving IANA registry. `isEmpty` considers `{}` empty but does not treat arbitrary class instances as empty.

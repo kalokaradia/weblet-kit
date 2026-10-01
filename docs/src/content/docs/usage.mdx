@@ -1,0 +1,31 @@
+---
+title: Usage
+description: Choose between named imports and grouped imports.
+---
+
+## Named imports
+
+Named imports keep call sites direct and are the clearest choice for most projects:
+
+```ts
+import { clamp, formatDate, isStrongPassword } from 'weblet-kit';
+
+const progress = clamp(125, 0, 100);
+const today = formatDate(new Date());
+const accepted = isStrongPassword('Example123!');
+```
+
+## Grouped imports
+
+The `utils` and `validators` objects are convenient when categorizing calls:
+
+```ts
+import { utils, validators } from 'weblet-kit';
+
+const unique = utils.removeDuplicatesArray(['a', 'a', 'b']);
+const accepted = validators.isEmail('hello@example.com');
+```
+
+## CommonJS and browser builds
+
+The package export map exposes an ESM import and a declaration file. It does not declare a CommonJS entry or a CDN-specific export in `package.json`. The library's Vite configuration also produces a UMD file for releases, but consumers should follow the artifact and URL published for the version they install.

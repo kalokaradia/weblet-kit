@@ -1,0 +1,20 @@
+---
+title: Number and random utilities
+description: Numeric bounds, random number, and random identifier helpers.
+---
+
+| Function and signature | Parameters | Return and behavior |
+| --- | --- | --- |
+| `clamp(value: number, min: number, max: number): number` | Value and bounds. | Restricts the value to the inclusive bounds; reversed bounds are swapped. Any non-finite input returns `NaN`. |
+| `generateRandomInt(min: number, max: number): number` | Inclusive integer bounds. | Uniform `Math.random`-based integer from `min` through `max`. Throws `Error` if either bound is not an integer or `max < min`. |
+| `generateRandomId(length = 16): string` | Optional length. | Builds an alphanumeric string using `Math.random`. No explicit length validation is performed. |
+
+```ts
+import { clamp, generateRandomInt, generateRandomId } from 'weblet-kit';
+
+clamp(120, 0, 100); // 100
+generateRandomInt(1, 6); // integer from 1 through 6
+generateRandomId(); // 16 alphanumeric characters
+```
+
+Random helpers use `Math.random`; they are not suitable for security-sensitive tokens. A negative or fractional ID length follows the loop's normal JavaScript behavior (negative produces an empty string; positive fractional lengths effectively round up by iteration count).

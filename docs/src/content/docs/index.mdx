@@ -1,0 +1,55 @@
+---
+title: weblet-kit
+description: A compact JavaScript and TypeScript toolkit for everyday utilities.
+template: splash
+hero:
+  tagline: Small, focused utilities for everyday JavaScript.
+  actions:
+    - text: Get started
+      link: /getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: Browse API
+      link: /api/
+      icon: open-book
+    - text: GitHub
+      link: https://github.com/kalokaradia/weblet-kit
+      icon: external
+      variant: minimal
+      attrs:
+        target: _blank
+        rel: noopener noreferrer
+---
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+`weblet-kit` is a small collection of typed helpers for arrays, objects, text, dates, numbers, functions, and common validation tasks. Import only the functions you need from one package entry point.
+
+<CardGrid stagger>
+  <Card title="No runtime dependencies" icon="seti:javascript">
+    The package manifest has no runtime dependencies. Its build tools are development dependencies only.
+  </Card>
+  <Card title="Named exports" icon="seti:typescript">
+    Import individual helpers from `weblet-kit`; TypeScript declarations are published with the package.
+  </Card>
+  <Card title="Focused categories" icon="puzzle">
+    Use array, object, text, date, random, function, and validation helpers as needed.
+  </Card>
+</CardGrid>
+
+## Quick start
+
+Install the package, then import the functions your code uses:
+
+```sh
+npm install weblet-kit
+```
+
+```ts
+import { chunkArray, debounce, isEmail } from 'weblet-kit';
+
+const pages = chunkArray(['a', 'b', 'c'], 2);
+const valid = isEmail('dev@example.com');
+const saveLater = debounce(() => console.log('saved'), 250);
+```
+
+Continue with [installation and imports](/getting-started/) or go directly to the [API reference](/api/).

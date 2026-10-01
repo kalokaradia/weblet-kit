@@ -1,0 +1,25 @@
+:root {
+	--sl-color-accent-low: #e3f5f1;
+	--sl-color-accent: #087f6a;
+	--sl-color-accent-high: #064c42;
+	--sl-content-width: 52rem;
+}
+
+:root[data-theme='dark'] {
+	--sl-color-accent-low: #123c36;
+	--sl-color-accent: #62d5bb;
+	--sl-color-accent-high: #b3f1e3;
+}
+
+.hero h1 {
+	letter-spacing: -0.045em;
+}
+
+.sl-markdown-content table {
+	display: table;
+	width: 100%;
+}
+
+.sl-markdown-content td code {
+	white-space: nowrap;
+}

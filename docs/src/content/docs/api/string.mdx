@@ -1,0 +1,23 @@
+---
+title: String and text utilities
+description: Public string transformation and escaping functions.
+---
+
+| Function and signature | Parameters | Return and behavior |
+| --- | --- | --- |
+| `capitalize(str: string): string` | Text. | Uppercases the first UTF-16 code unit and keeps the rest unchanged. Empty/non-string runtime input returns `''`. |
+| `toTitleCase(input: unknown): string` | Value. | For strings, lowercases all text then uppercases word starts matched by `\b\w+`; non-strings return `''`. |
+| `truncate(input: unknown, maxLength: number): string` | String and maximum length. | Trims the string; returns it unchanged when within limit, otherwise takes `maxLength - 3` characters and appends `...`. Invalid type or negative length returns `''`. |
+| `escapeHTML(str: string): string` | Text. | Replaces `&`, `<`, `>`, `"`, and `'` with HTML entities. Empty/non-string runtime input returns `''`. |
+| `isPalindrome(str: string): boolean` | Text. | Compares lowercase ASCII letters and digits after removing all other characters. |
+
+```ts
+import { capitalize, truncate, escapeHTML, isPalindrome } from 'weblet-kit';
+
+capitalize('hello'); // 'Hello'
+truncate('  A longer title  ', 10); // 'A longe...'
+escapeHTML('<strong>'); // '&lt;strong&gt;'
+isPalindrome('A man, a plan, a canal: Panama'); // true
+```
+
+For `truncate`, lengths below `3` still follow the same `slice(0, maxLength - 3) + '...'` rule, which can produce only ellipses or a shortened string. `escapeHTML` is an escaping helper, not a complete HTML sanitization system.

@@ -1,0 +1,24 @@
+---
+title: Object utilities
+description: Public object helper functions.
+---
+
+| Function and signature | Parameters | Return and behavior |
+| --- | --- | --- |
+| `deepClone<T>(value: T): T` | Any value. | Recursively copies arrays and enumerable own properties of objects; primitives and `null` pass through. Does not preserve prototypes or special object types. |
+| `mergeDeep<T extends object, U extends object>(target: T, source: U): T & U` | Target and source objects. | Mutates and returns `target`; recursively merges non-array objects and replaces other values. Arrays are replaced, not merged. |
+| `pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>` | Object and keys. | New object containing requested keys that exist on the object. |
+| `omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K>` | Object and keys. | New object containing own enumerable string keys except the selected keys. |
+
+```ts
+import { pick, omit, mergeDeep } from 'weblet-kit';
+
+const account = { id: 7, name: 'Ada', active: true };
+pick(account, ['id', 'name']);
+omit(account, ['active']);
+
+const settings = mergeDeep({ ui: { theme: 'light' } }, { ui: { density: 'compact' } });
+// settings.ui is the same nested object from the target, updated in place.
+```
+
+`deepClone` is not a general-purpose structured clone: circular references recurse indefinitely, and values such as `Date`, `Map`, `Set`, class instances, accessors, and symbol-keyed properties are not faithfully preserved. `mergeDeep` similarly expects ordinary object data; it mutates its target.

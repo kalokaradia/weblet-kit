@@ -1,0 +1,22 @@
+---
+title: Date utilities
+description: Date formatting and date comparison functions.
+---
+
+| Function and signature | Parameters | Return and behavior |
+| --- | --- | --- |
+| `formatDate(date: Date, format = 'YYYY-MM-DD'): string` | Valid `Date` and optional token template. | Replaces the first occurrence of each token `YYYY`, `MM`, `DD`, `HH`, `mm`, `ss`, using local time. Non-Date input returns `''`. |
+| `isDate(value: unknown): boolean` | Value. | True for a valid `Date`, or a string/number that JavaScript can parse as a date. |
+| `isFutureDate(date: unknown): boolean` | Date, parseable string, or timestamp. | True when the parsed instant is later than the current time. Invalid input returns false. |
+| `isPastDate(date: unknown): boolean` | Date, parseable string, or timestamp. | True when the parsed instant is earlier than the current time. Invalid input returns false. |
+| `isDateBefore(date: unknown, comparisonDate: unknown): boolean` | Two date-like values. | True when first instant is earlier; invalid values return false. |
+| `isDateAfter(date: unknown, comparisonDate: unknown): boolean` | Two date-like values. | True when first instant is later; invalid values return false. |
+
+```ts
+import { formatDate, isDateAfter } from 'weblet-kit';
+
+formatDate(new Date(2025, 0, 5), 'DD/MM/YYYY'); // '05/01/2025'
+isDateAfter('2025-01-02', '2025-01-01'); // true
+```
+
+Date comparisons use complete timestamps, not calendar-day comparisons. Parsing strings follows the JavaScript `Date` constructor and can vary for non-standard date strings. `formatDate` uses local time; it does not format UTC unless the date object and environment are set accordingly.

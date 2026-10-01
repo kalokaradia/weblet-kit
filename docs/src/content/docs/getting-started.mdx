@@ -1,0 +1,47 @@
+---
+title: Getting started
+description: Install weblet-kit and import its ESM functions.
+---
+
+## Requirements
+
+`weblet-kit` is published as an ES module and includes TypeScript declarations. The package declares no runtime dependencies. The current package manifest does not specify a minimum Node.js or browser version.
+
+Install with your preferred package manager; see [Installation](/installation/) for commands.
+
+## Import functions
+
+Import named exports from the package root:
+
+```js
+import { chunkArray, isEmail } from 'weblet-kit';
+
+const pages = chunkArray(['a', 'b', 'c'], 2);
+const valid = isEmail('hello@example.com');
+```
+
+The same import works in TypeScript; declarations are emitted by the library build.
+
+## Grouped API
+
+All utility and validator exports are also available under `utils` and `validators`:
+
+```js
+import { utils, validators } from 'weblet-kit';
+
+const mean = utils.average([10, 20, 30]);
+const valid = validators.isEmail('hello@example.com');
+```
+
+The default export has the same two groups:
+
+```js
+import webletKit from 'weblet-kit';
+
+webletKit.utils.shuffleArray([1, 2, 3]);
+webletKit.validators.isUUID('550e8400-e29b-41d4-a716-446655440000');
+```
+
+## Package entry point
+
+The package exports its ESM bundle and declarations from `weblet-kit`. It does not currently declare package subpaths such as `weblet-kit/utils`. Use named root imports or the grouped API instead.

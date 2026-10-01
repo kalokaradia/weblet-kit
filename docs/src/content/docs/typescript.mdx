@@ -1,0 +1,24 @@
+---
+title: TypeScript
+description: Type declarations and inferred utility types.
+---
+
+The package includes declaration files produced from its strict TypeScript source. No separate `@types` package is required. Generic functions preserve types for arrays, `pick`, `omit`, `deepClone`, and function wrappers.
+
+```ts
+import { chunkArray, omit, isStrongPassword } from 'weblet-kit';
+import type { StrongPasswordOptions } from 'weblet-kit';
+
+const groups = chunkArray<number>([1, 2, 3], 2); // number[][]
+const user = { id: 1, email: 'dev@example.com' };
+const publicUser = omit(user, ['email']); // { id: number }
+
+const rules: StrongPasswordOptions = { minLength: 12, requireNumber: false };
+isStrongPassword('LongPassword!', rules);
+```
+
+## Public options type
+
+`StrongPasswordOptions` configures `isStrongPassword`. Its optional properties are `minLength`, `maxLength`, `requireUppercase`, `requireLowercase`, `requireNumber`, `requireSpecialChar`, and `specialChars`. Defaults are described on the [validator reference](/api/validators/).
+
+Function parameters and return types are listed on each [API category page](/api/).

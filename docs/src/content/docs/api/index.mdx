@@ -1,0 +1,25 @@
+---
+title: API reference
+description: Public functions and types exported by weblet-kit 2.2.0.
+---
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+All entries here come from the package root exports in `src/index.ts`. Functions can be imported by name or from the `utils` and `validators` groups. There are no package subpath exports at present.
+
+<CardGrid>
+  <Card title="Array" href="/api/array/">Chunk, group, sort, flatten, and summarize arrays.</Card>
+  <Card title="Object" href="/api/object/">Clone, merge, select, and omit object properties.</Card>
+  <Card title="String and text" href="/api/string/">Transform, truncate, escape, and inspect text.</Card>
+  <Card title="Date" href="/api/date/">Format dates and compare date values.</Card>
+  <Card title="Number and random" href="/api/number/">Clamp, generate numbers, and create random IDs.</Card>
+  <Card title="Function utilities" href="/api/functions/">Debounce, throttle, and memoize functions.</Card>
+  <Card title="Validators" href="/api/validators/">Check values, formats, coordinates, and dates.</Card>
+</CardGrid>
+
+## Export shape
+
+```ts
+import webletKit, { utils, validators, chunkArray } from 'weblet-kit';
+```
+
+The package also exports `StrongPasswordOptions` as a type.

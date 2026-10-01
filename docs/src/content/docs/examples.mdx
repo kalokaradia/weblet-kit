@@ -1,0 +1,51 @@
+---
+title: Examples and recipes
+description: Compose weblet-kit helpers in common application tasks.
+---
+
+## Paginate an array
+
+`chunkArray` returns consecutive groups. A non-positive size returns an empty array.
+
+```ts
+import { chunkArray } from 'weblet-kit';
+
+const pages = chunkArray(['a', 'b', 'c', 'd', 'e'], 2);
+// [['a', 'b'], ['c', 'd'], ['e']]
+```
+
+## Validate a form value
+
+Validators return booleans and accept `unknown` where the implementation performs a type check.
+
+```ts
+import { isEmail, isStrongPassword } from 'weblet-kit';
+
+function canSubmit(email: unknown, password: unknown): boolean {
+  return isEmail(email) && isStrongPassword(password);
+}
+```
+
+## Debounce an input handler
+
+`debounce` returns a function that delays execution until calls stop for the given delay. It does not expose cancellation or flush methods.
+
+```ts
+import { debounce } from 'weblet-kit';
+
+const search = debounce((query: string) => {
+  console.log('Search for', query);
+}, 250);
+
+search('weblet');
+```
+
+## Format a local date
+
+`formatDate` reads local date and time fields. It supports the tokens `YYYY`, `MM`, `DD`, `HH`, `mm`, and `ss`.
+
+```ts
+import { formatDate } from 'weblet-kit';
+
+formatDate(new Date(2025, 0, 5), 'DD/MM/YYYY'); // '05/01/2025'
+```
